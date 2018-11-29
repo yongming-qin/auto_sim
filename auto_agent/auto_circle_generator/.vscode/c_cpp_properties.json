@@ -1,0 +1,23 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/home/yq/mssd/Documents/14_RavenCodes/My_codes/for_moveit_path/raven_devel/devel/include",
+                    "/opt/ros/kinetic/include",
+                    "/usr/include"
+                ]
+            },
+            "includePath": [
+                "/home/yq/mssd/Documents/14_RavenCodes/My_codes/for_moveit_path/raven_devel/devel/include",
+                "/opt/ros/kinetic/include",
+                "/usr/include"
+            ],
+            "name": "Linux",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

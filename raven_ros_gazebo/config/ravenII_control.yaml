@@ -1,0 +1,35 @@
+ravenII:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # Position Controllers ---------------------------------------
+  shoulder_L_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: shoulder_L
+    pid: {p: 3.0, i: 0.0, d: 0.08}
+  elbow_L_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: elbow_L
+    pid: {p: 3.0, i: 0.0, d: 0.08}
+  insertion_L_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: insertion_L
+    pid: {p: 1.5, i: 0.0, d: 0.12}
+  tool_roll_L_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: tool_roll_L
+    pid: {p: 0.9, i: 0.0, d: 0.01}
+  wrist_joint_L_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: wrist_joint_L
+    pid: {p: 0.5, i: 0.0, d: 0.0}
+  grasper_joint_1_L_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: grasper_joint_1_L
+    pid: {p: 0.5, i: 0.0, d: 0.0}
+  grasper_joint_2_L_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: grasper_joint_2_L
+    pid: {p: 0.5, i: 0.0, d: 0.0}

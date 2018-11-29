@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+
+
+<robot name="box_Demo">
+
+<gazebo reference="box">
+  <turnGravityOff>False</turnGravityOff>
+	<material>Gazebo/Black</material>
+    </gazebo>
+<static>true</static>
+  <link name="box">
+    <origin rpy="0 0 -0.8" xyz="0 0.011 0.175"/>
+    <visual>
+	<material name="Cyan">
+	<color rgba="0.5 0.5 0.5 1"/>
+      </material>
+      <geometry>
+	<box size="0.1 0.005 0.005" />
+      </geometry>
+    <origin rpy="0 0 0" xyz="-0.00680 -0.00904 0.00152"/>
+    </visual>
+
+    <inertial>
+      <origin xyz = "0 0 0" rpy="0 0 0"/>
+      <mass value = "1"/>
+      <inertia
+          ixx = "0.000004"
+          ixy = "0"
+          ixz = "0"
+          iyy = "0"
+          iyz = "0"
+          izz = "0"
+          />
+    </inertial>
+
+    <collision>
+      <geometry>
+        <box size="0.1 0.005 0.005" />
+      </geometry>
+
+    <origin rpy="0 0 0" xyz="-0.00680 -0.00904 0.00152"/>
+    </collision>
+
+  </link>
+</robot>

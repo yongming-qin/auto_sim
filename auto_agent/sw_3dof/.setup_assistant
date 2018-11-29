@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: raven_frame
+    relative_path: ravenII_3dof_frame.urdf
+    xacro_args: "--inorder "
+  SRDF:
+    relative_path: config/raven_2.srdf
+  CONFIG:
+    author_name: Yongming
+    author_email: yq9vc@virginia.edu
+    generated_timestamp: 1534901513

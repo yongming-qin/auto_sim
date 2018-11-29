@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: raven_2arm
+    relative_path: urdf/raven_gazebo_6dof.urdf
+    xacro_args: "--inorder "
+  SRDF:
+    relative_path: config/raven_2arm.srdf
+  CONFIG:
+    author_name: Yongming Qin
+    author_email: yq9vc@virginia.edu
+    generated_timestamp: 1542925928

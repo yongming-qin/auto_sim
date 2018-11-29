@@ -1,0 +1,11 @@
+<robot>
+ <robot file="ravenII_with_palm.dae"></robot>
+ <manipulator name="arm">
+   <base>base_link_L</base>
+   <!-- <effector>palm_L</effector> -->
+   <effector>palm_L</effector>
+   <armjoints>shoulder_L elbow_L insertion_L tool_roll_L wrist_joint_L wrist_bend_L</armjoints>
+   <!-- <joints>grasper_joint_2_L grasper_joint_2_L</joints>
+   <closingdirection>1 1</closingdirection> -->
+ </manipulator>
+</robot>

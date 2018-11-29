@@ -1,0 +1,11 @@
+controller_list:
+  - name: fake_left_arm_controller
+    joints:
+      - shoulder_L
+      - elbow_L
+      - insertion_L
+      - tool_roll_L
+      - wrist_joint_L
+  - name: fake_left_grasper_controller
+    joints:
+      []

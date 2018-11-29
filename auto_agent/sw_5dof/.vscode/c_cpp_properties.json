@@ -1,0 +1,21 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/yq/Simulator/moveit_dsn/raven_devel/devel/include",
+        "/opt/ros/kinetic/include",
+        "/home/yq/Simulator/moveit_dsn/raven_devel/src/my_urdf/include",
+        "/home/yq/Simulator/moveit_dsn/raven_devel/src/image_analysis/include",
+        "/home/yq/Simulator/moveit_dsn/raven_devel/src/pc_analysis/include",
+        "/home/yq/Simulator/moveit_dsn/raven_devel/src/raven_2/include",
+        "/home/yq/Simulator/moveit_dsn/raven_devel/src/raven_frame/include",
+        "/usr/include"
+      ],
+      "name": "Linux"
+    }
+  ]
+}

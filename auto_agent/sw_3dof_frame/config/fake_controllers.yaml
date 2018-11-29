@@ -1,0 +1,17 @@
+controller_list:
+  - name: fake_larm_controller
+    joints:
+      - shoulder_L
+      - elbow_L
+      - insertion_L
+  - name: fake_rarm_controller
+    joints:
+      - shoulder_R
+      - elbow_R
+      - insertion_R
+  - name: fake_lg_controller
+    joints:
+      []
+  - name: fake_rg_controller
+    joints:
+      []

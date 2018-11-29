@@ -1,0 +1,419 @@
+<?xml version="1.0"?>
+<!--RavenII Surgical Robot Xacro File -->
+<!--Author: Kyle Lindgren-->
+<!--kyle509@uw.edu-->
+<!--Date: 21-Jan-2018 -->
+<!--Biorobotics Laboratory -->
+<!--University of Washington -->
+<robot name="ravenII" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Constants for robot dimensions -->
+    <xacro:property name="PI" value="3.1415926535897931"/>
+    <xacro:property name="mass" value="0.25" /> <!-- arbitrary value for mass -->
+    <xacro:property name="width" value="1" /> <!-- Square dimensions (widthxwidth) of beams -->
+    <xacro:property name="height1" value="1" /> <!-- Link 1 -->
+    <xacro:property name="height2" value="2" /> <!-- Link 2 -->
+    <xacro:property name="height3" value="3" /> <!-- Link 3 -->
+    <xacro:property name="camera_link" value="0.05" /> <!-- Size of square 'camera' box -->
+    <xacro:property name="axel_offset" value="0.05" /> <!-- Space btw top of beam and the each joint -->
+    <xacro:property name="damping" value="0.7" /> <!-- damping factor -->
+
+    <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+    <xacro:include filename="$(find raven_ros_gazebo)/urdf/ravenII.gazebo" />
+    <!-- Import Rviz colors -->
+    <xacro:include filename="$(find raven_ros_gazebo)/urdf/materials.xacro" />
+
+    <!--This is a virtual link, both robot bases are attached to this link -->
+    <link name="world"/>
+
+    <joint name="fixed" type="fixed">
+        <parent link="world"/>
+        <child link="base_link_L"/>
+        <!-- This rotation with raven defaults -> proper insertion axis movement -->
+        <!-- <origin xyz="0 0 0.4" rpy="0 0 ${PI}"/> -->
+        <!-- <origin xyz="0 0 0" rpy="0 ${PI/2} 0"/> -->
+        <!-- working one below -->
+        <!-- <origin xyz="0 0 0" rpy="0 ${PI/2} ${-PI/2}"/> -->
+        <origin xyz="0 0 0.4" rpy="0 0 0"/>
+        <!-- <origin xyz="0 0 0" rpy="${PI} 0 ${PI*1.5}"/> -->
+        <!-- <origin xyz="0 0 0.4" rpy="${-PI/2} ${PI/2} 0"/> -->
+    </joint>
+
+    <link name="base_link_L">
+        <visual>
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/base_w_motors.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/base_w_motors.dae"/>
+            </geometry>
+            <!-- <origin xyz="0 0 0.2" rpy="0 0 ${PI}"/> -->
+            <!-- <origin xyz="0 0 0.4" rpy="0 0 ${PI}"/> -->
+            <!-- <origin xyz="0 0 0.2" rpy="$0 0 1.57"/> -->
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+        </visual>
+
+        <collision>
+            <!-- <origin xyz="0 0 0.2" rpy="0 0 ${PI}"/> -->
+            <!-- <origin xyz="0 0 0.4" rpy="0 0 ${PI}"/> -->
+            <!-- <origin xyz="0 0 0.2" rpy="$0 0 1.57"/> -->
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/base_w_motors.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/base_w_motors.dae"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <!-- <origin xyz="0 0 0.2" rpy="0 0 ${PI}"/> -->
+            <!-- <origin xyz="0 0 0.4" rpy="0 0 ${PI}"/> -->
+            <!-- <origin xyz="0 0 0.2" rpy="$0 0 1.57"/> -->
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <mass value="${mass}"/>
+            <inertia
+                ixx="${mass / 12.0 * (width*width + height1*height1)}" ixy="0.0" ixz="0.0"
+                iyy="${mass / 12.0 * (height1*height1 + width*width)}" iyz="0.0"
+                izz="${mass / 12.0 * (width*width + width*width)}"/>
+        </inertial>
+    </link>
+
+    <joint name="shoulder_L" type="revolute">
+        <axis xyz="1 0 0"/>
+        <!-- <limit effort="1000.0" lower="-0.8" upper="0.6" velocity="0.5"/> -->
+        <limit effort="1000.0" lower="-3.1415" upper="3.1415" velocity="0.5"/>
+        <!-- <origin xyz="0.0 0.0 0.2" rpy="0 0 ${PI}"/> -->
+        <!-- <origin xyz="0 0 0.4" rpy="0 0 ${PI}"/> -->
+        <!-- <origin xyz="0 0 0.2" rpy="$0 0 1.57"/> -->
+        <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+        <parent link="base_link_L"/>
+        <child link="link1_L"/>
+        <dynamics damping="${damping}"/>
+    </joint>
+
+    <link name="link1_L">
+        <visual>
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/link1_w_cover.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/link1_w_cover.dae"/>
+            </geometry>
+            <!-- <origin xyz="0 0 0" rpy="${PI/2} ${-PI} ${PI/2}"/> -->
+            <!-- <origin xyz="0 0 0" rpy="${-PI/2} ${PI/2} 0"/> -->
+            <!-- <origin xyz="0 0 0" rpy="${-PI/2} ${PI/2} ${PI}"/> -->
+            <!-- <origin xyz="0 0 0" rpy="${PI/2} ${PI/2} ${PI/2}"/> -->
+        </visual>
+
+        <collision>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/link1_w_cover.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/link1_w_cover.dae"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <mass value="0.503"/>
+            <inertia
+                ixx="0.0" ixy="0.0" ixz="0.0"
+                iyy="0.000001" iyz="0.0"
+                izz="0"/>
+        </inertial>
+    </link>
+
+    <joint name="elbow_L" type="revolute">
+        <axis xyz="0.2590 -0.9014 0.3471"/>
+        <!-- <limit effort="1000.0" lower="-0.5" upper="1.0" velocity="0.5"/> -->
+        <limit effort="1000.0" lower="-3.1415" upper="3.1415" velocity="0.5"/>
+        <!-- <origin rpy="-1.7988 0.8749 -1.6949" xyz="0.0 0.0 0"/> -->
+        <parent link="link1_L"/>
+        <child link="link2_L"/>
+        <dynamics damping="${damping}"/>
+    </joint>
+
+    <link name="link2_L">
+        <visual>
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/link2.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/link2.dae"/>
+            </geometry>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+        </visual>
+
+        <collision>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/link2.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/link2.dae"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <mass value="${mass}"/>
+            <inertia
+                ixx="${mass / 12.0 * (width*width + height1*height1)}" ixy="0.0" ixz="0.0"
+                iyy="${mass / 12.0 * (height1*height1 + width*width)}" iyz="0.0"
+                izz="${mass / 12.0 * (width*width + width*width)}"/>
+        </inertial>
+    </link>
+
+    <joint name="insertion_L" type="prismatic">
+        <axis xyz="-0.6012 -0.7460 0.2864"/>
+        <!-- <axis xyz="0 0 1"/> -->
+        <!-- <limit effort="1000.0" lower="-0.1" upper="0.17" velocity="0.5"/> -->
+        <limit effort="1000.0" lower="-0.17" upper="0.1" velocity="0.5"/>
+        <!-- <limit effort="1000.0" lower="-3.1415" upper="3.1415" velocity="0.5"/> -->
+        <!-- <origin rpy="0 0 0" xyz="0 0 0.4"/> -->
+        <parent link="link2_L"/>
+        <child link="link3_L"/>
+        <dynamics damping="${damping}"/>
+    </joint>
+
+    <link name="link3_L">
+        <visual>
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/link3.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/link3.dae"/>
+            </geometry>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+        </visual>
+
+        <collision>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/link3.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/link3.dae"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <mass value="${mass / 10.0}"/>
+            <inertia
+                ixx="${mass / 24.0 * (width*width + height1*height1)}" ixy="0.0" ixz="0.0"
+                iyy="${mass / 24.0 * (height1*height1 + width*width)}" iyz="0.0"
+                izz="${mass / 24.0 * (width*width + width*width)}"/>
+        </inertial>
+    </link>
+
+    <joint name="tool_roll_L" type="revolute">
+        <axis xyz="-0.6012 -0.7460 0.2864"/>
+        <limit effort="1000.0" lower="-3.1415" upper="3.1415" velocity="0.5"/>
+        <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+        <parent link="link3_L"/>
+        <child link="instrument_shaft_L"/>
+    </joint>
+
+    <link name="instrument_shaft_L">
+        <visual>
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/instrument_shaft.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/instrument_shaft.dae"/>
+            </geometry>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+        </visual>
+
+        <collision>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/instrument_shaft.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/instrument_shaft.dae"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <mass value="${mass / 20.0}"/>
+            <inertia
+                ixx="${mass / 48.0 * (width*width + height1*height1)}" ixy="0.0" ixz="0.0"
+                iyy="${mass / 48.0 * (height1*height1 + width*width)}" iyz="0.0"
+                izz="${mass / 48.0 * (width*width + width*width)}"/>
+        </inertial>
+    </link>
+
+    <joint name="wrist_joint_L" type="revolute">
+        <axis xyz=" -0.5637 0.6523 0.5067"/>
+        <!-- <limit effort="1000.0" lower="-2" upper="2" velocity="0.5"/> -->
+        <limit effort="1000.0" lower="-3.1415" upper="3.1415" velocity="0.5"/>
+        <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+        <parent link="instrument_shaft_L"/>
+        <child link="wrist_L"/>
+    </joint>
+
+    <link name="wrist_L">
+        <visual>
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/wrist.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/wrist.dae"/>
+            </geometry>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+        </visual>
+
+        <collision>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/wrist.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/wrist.dae"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <!-- <origin xyz="0 0 0" rpy="0 0 0"/> -->
+            <mass value="${mass / 100.0}"/>
+            <inertia
+                ixx="${mass / 96.0 * (width*width + height1*height1)}" ixy="0.0" ixz="0.0"
+                iyy="${mass / 96.0 * (height1*height1 + width*width)}" iyz="0.0"
+                izz="${mass / 96.0 * (width*width + width*width)}"/>
+        </inertial>
+    </link>
+
+    <joint name="grasper_joint_1_L" type="revolute">
+        <axis xyz="-0.5648 0.1427 -0.8128"/>
+        <!-- <limit effort="1000.0" lower="0.0" upper="1.5708" velocity=".5"/> -->
+        <limit effort="1000.0" lower="-3.1415" upper="3.1415" velocity="0.5"/>
+        <origin rpy="0 0 0" xyz="0.00680 0.00904 -0.00452"/>
+        <parent link="wrist_L"/>
+        <child link="grasper1_L"/>
+    </joint>
+
+    <link name="grasper1_L">
+        <visual>
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/grasper_1.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/grasper_1.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="-0.00680 -0.00904 0.00452"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 0 0" xyz="-0.00680 -0.00904 0.00452"/>
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/grasper_1.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/grasper_1.dae"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin rpy="0 0 0" xyz="-0.00680 -0.00904 0.00452"/>
+            <mass value="${mass / 100}"/>
+            <inertia
+                ixx="${mass / 96.0}" ixy="0.0" ixz="0.0"
+                iyy="${mass / 96.0}" iyz="0.0"
+                izz="${mass / 96.0}"/>
+        </inertial>
+    </link>
+
+    <joint name="grasper_joint_2_L" type="revolute">
+        <axis xyz="-0.5648 0.1427 -0.8128"/>
+        <!-- <limit effort="1000.0" lower="-1.5708" upper="0.0" velocity=".5"/> -->
+        <limit effort="1000.0" lower="-3.1415" upper="3.1415" velocity="0.5"/>
+        <origin rpy="0 0 0" xyz="0.00680 0.00904 -0.00452"/>
+        <parent link="wrist_L"/>
+        <child link="grasper2_L"/>
+    </joint>
+
+    <link name="grasper2_L">
+        <visual>
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/grasper_2.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/grasper_2.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="-0.00680 -0.00904 0.00452"/>
+        </visual>
+
+        <collision>
+            <origin rpy="0 0 0" xyz="-0.00680 -0.00904 0.00452"/>
+            <geometry>
+                <!-- <mesh filename="package://raven_ros_gazebo/meshes/left_arm/grasper_2.dae"/> -->
+                <mesh filename="package://raven_ros_gazebo/meshes/left_arm/simple_ravenII_dae/grasper_2.dae"/>
+            </geometry>
+        </collision>
+
+        <inertial>
+            <origin rpy="0 0 0" xyz="-0.00680 -0.00904 0.00452"/>
+            <mass value="${mass / 100}"/>
+            <inertia
+                ixx="${mass / 96.0}" ixy="0.0" ixz="0.0"
+                iyy="${mass / 96.0}" iyz="0.0"
+                izz="${mass / 96.0}"/>
+        </inertial>
+    </link>
+
+
+
+    <transmission name="tran1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="shoulder_L">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="tran2">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="elbow_L">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor2">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="tran3">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="insertion_L">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="tran4">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="tool_roll_L">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="tran5">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="wrist_joint_L">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor5">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="tran6">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="grasper_joint_1_L">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor6">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="tran7">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="grasper_joint_2_L">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motor7">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+</robot>
