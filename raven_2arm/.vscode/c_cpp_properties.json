@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/yq/Simulator/mine_ws/devel/include",
+        "/opt/ros/kinetic/include",
+        "/home/yq/Simulator/mine_ws/src/auto_agent/image_analysis/include",
+        "/home/yq/Simulator/mine_ws/src/auto_agent/my_urdf/include",
+        "/home/yq/Simulator/mine_ws/src/auto_agent/pc_analysis/include",
+        "/home/yq/Simulator/mine_ws/src/raven2/include",
+        "/home/yq/Simulator/mine_ws/src/auto_agent/raven_frame/include",
+        "/home/yq/Simulator/mine_ws/src/raven_ros_gazebo/include",
+        "/home/yq/Simulator/mine_ws/src/raven_visualization/include",
+        "/usr/include"
+      ],
+      "name": "Linux"
+    }
+  ]
+}

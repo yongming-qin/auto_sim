@@ -1,0 +1,16 @@
+# Text editor backups
+*~
+
+# Python byte code
+*.pyc
+
+# Qt Creator specific
+CMakeLists.txt.user*
+
+# Eclipse specific
+.project
+.cproject
+
+#  Doxygen generated html files:
+/html   
+
