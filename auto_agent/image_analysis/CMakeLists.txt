@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   cv_bridge
   image_transport
+  pc_analysis
 )
 find_package(OpenCV)
 
@@ -105,7 +106,7 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
+  INCLUDE_DIRS
   LIBRARIES ${PROJECT_NAME}
 #  CATKIN_DEPENDS roscpp rospy std_msgs
   CATKIN_DEPENDS message_runtime cv_bridge image_transport
@@ -154,15 +155,16 @@ include_directories(
 # )
 add_executable(talker src/talker.cpp)
 target_link_libraries(talker ${catkin_LIBRARIES})
-add_dependencies(talker beginner_tutorials_generate_messages_cpp)
+add_dependencies(talker ${PROJECT_NAME}_generate_messages_cpp)
 
 add_executable(listener src/listener.cpp)
 target_link_libraries(listener ${catkin_LIBRARIES})
-add_dependencies(listener beginner_tutorials_generate_messages_cpp)
+add_dependencies(listener ${PROJECT_NAME}_generate_messages_cpp)
 
 add_executable(color_detection src/color_detection.cpp)
 target_link_libraries(color_detection ${catkin_LIBRARIES}
 ${OpenCV_LIBRARIES})
+add_dependencies(listener ${PROJECT_NAME}_generate_messages_cpp)
 
 
 #############
